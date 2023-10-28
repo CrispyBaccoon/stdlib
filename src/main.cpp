@@ -178,7 +178,7 @@ static int mmap_test() {
 
   char **argv = reinterpret_cast<char**>(malloc(2*sizeof(char)));
   argv[0] = "main";
-  argv[1] = "file.bin";
+  argv[1] = "file.hex";
   int argc = sizeof(*argv);
 
   if(argc < 2){
