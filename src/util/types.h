@@ -15,6 +15,9 @@
 
 typedef __SIZE_TYPE__ size_t;
 
+// fixed-size types, underlying types depend on word size and compiler.
+// --------------------------------------------------------------------
+
 typedef signed char __int8_t;
 typedef unsigned char __uint8_t;
 typedef signed short int __int16_t;
@@ -28,6 +31,10 @@ typedef unsigned long int __uint64_t;
 __extension__ typedef signed long long int __int64_t;
 __extension__ typedef unsigned long long int __uint64_t;
 #endif
+
+// smallest types with at least a given width.
+// -------------------------------------------
+
 typedef __int8_t __int_least8_t;
 typedef __uint8_t __uint_least8_t;
 typedef __int16_t __int_least16_t;
@@ -37,7 +44,9 @@ typedef __uint32_t __uint_least32_t;
 typedef __int64_t __int_least64_t;
 typedef __uint64_t __uint_least64_t;
 
-/* Types for `void *' pointers.  */
+// types for `void *' pointers. 
+// -----------------------------
+
 #if __WORDSIZE == 64
 # ifndef __intptr_t_defined
 typedef long int		intptr_t;
@@ -52,7 +61,9 @@ typedef int			intptr_t;
 typedef unsigned int		uintptr_t;
 #endif
 
-/* Largest integral types.  */
+// largest integral types. 
+// ------------------------
+
 #if __WORDSIZE == 64
 typedef long int __intmax_t;
 typedef unsigned long int __uintmax_t;
@@ -61,7 +72,6 @@ __extension__ typedef long long int __intmax_t;
 __extension__ typedef unsigned long long int __uintmax_t;
 #endif
 
-/* Largest integral types.  */
 typedef __intmax_t		intmax_t;
 typedef __uintmax_t		uintmax_t;
 
@@ -73,43 +83,45 @@ typedef __uintmax_t		uintmax_t;
 #  define __UINT64_C(c)	c ## ULL
 # endif
 
-/* Limits of integral types.  */
+// limits of integral types. 
+// --------------------------
 
-/* Minimum of signed integral types.  */
+// minimum of signed integral types. 
 # define INT8_MIN		(-128)
 # define INT16_MIN		(-32767-1)
 # define INT32_MIN		(-2147483647-1)
 # define INT64_MIN		(-__INT64_C(9223372036854775807)-1)
-/* Maximum of signed integral types.  */
+
+// maximum of signed integral types. 
 # define INT8_MAX		(127)
 # define INT16_MAX		(32767)
 # define INT32_MAX		(2147483647)
 # define INT64_MAX		(__INT64_C(9223372036854775807))
 
-/* Maximum of unsigned integral types.  */
+// maximum of unsigned integral types. 
 # define UINT8_MAX		(255)
 # define UINT16_MAX		(65535)
 # define UINT32_MAX		(4294967295U)
 # define UINT64_MAX		(__UINT64_C(18446744073709551615))
 
-/* Minimum of signed integral types having a minimum size.  */
+// minimum of signed integral types having a minimum size. 
 # define INT_LEAST8_MIN		(-128)
 # define INT_LEAST16_MIN	(-32767-1)
 # define INT_LEAST32_MIN	(-2147483647-1)
 # define INT_LEAST64_MIN	(-__INT64_C(9223372036854775807)-1)
-/* Maximum of signed integral types having a minimum size.  */
+// maximum of signed integral types having a minimum size. 
 # define INT_LEAST8_MAX		(127)
 # define INT_LEAST16_MAX	(32767)
 # define INT_LEAST32_MAX	(2147483647)
 # define INT_LEAST64_MAX	(__INT64_C(9223372036854775807))
 
-/* Maximum of unsigned integral types having a minimum size.  */
+// maximum of unsigned integral types having a minimum size. 
 # define UINT_LEAST8_MAX	(255)
 # define UINT_LEAST16_MAX	(65535)
 # define UINT_LEAST32_MAX	(4294967295U)
 # define UINT_LEAST64_MAX	(__UINT64_C(18446744073709551615))
 
-/* Values to test for integral types holding `void *' pointer.  */
+// values to test for integral types holding `void *' pointer. 
 # if __WORDSIZE == 64
 #  define INTPTR_MIN		(-9223372036854775807L-1)
 #  define INTPTR_MAX		(9223372036854775807L)
@@ -120,15 +132,15 @@ typedef __uintmax_t		uintmax_t;
 #  define UINTPTR_MAX		(4294967295U)
 # endif
 
-/* Minimum for largest signed integral type.  */
+// minimum for largest signed integral type. 
 # define INTMAX_MIN		(-__INT64_C(9223372036854775807)-1)
-/* Maximum for largest signed integral type.  */
+// maximum for largest signed integral type. 
 # define INTMAX_MAX		(__INT64_C(9223372036854775807))
 
-/* Maximum for largest unsigned integral type.  */
+// maximum for largest unsigned integral type. 
 # define UINTMAX_MAX		(__UINT64_C(18446744073709551615))
 
-/* Limit of `size_t' type.  */
+// limit of `size_t' type. 
 # if __WORDSIZE == 64
 #  define SIZE_MAX		(18446744073709551615UL)
 # else
@@ -139,7 +151,7 @@ typedef __uintmax_t		uintmax_t;
 #  endif
 # endif
 
-/* Signed.  */
+// signed. 
 # define INT8_C(c)	c
 # define INT16_C(c)	c
 # define INT32_C(c)	c
@@ -149,7 +161,7 @@ typedef __uintmax_t		uintmax_t;
 #  define INT64_C(c)	c ## LL
 # endif
 
-/* Unsigned.  */
+// unsigned. 
 # define UINT8_C(c)	c
 # define UINT16_C(c)	c
 # define UINT32_C(c)	c ## U
@@ -159,7 +171,7 @@ typedef __uintmax_t		uintmax_t;
 #  define UINT64_C(c)	c ## ULL
 # endif
 
-/* Maximal type.  */
+// maximal type. 
 # if __WORDSIZE == 64
 #  define INTMAX_C(c)	c ## L
 #  define UINTMAX_C(c)	c ## UL
@@ -168,6 +180,7 @@ typedef __uintmax_t		uintmax_t;
 #  define UINTMAX_C(c)	c ## ULL
 # endif
 
+// type width.
 # define INT8_WIDTH 8
 # define UINT8_WIDTH 8
 # define INT16_WIDTH 16
@@ -184,13 +197,17 @@ typedef __uintmax_t		uintmax_t;
 
 // fixed width numeric types
 // -------------------------
+
+// usize type (size_t alias)
 typedef size_t usize;
 
+// unsigned numeric types
 typedef __uint8_t u8;
 typedef __uint16_t u16;
 typedef __uint32_t u32;
 typedef __uint64_t u64;
 
+// signed numeric types
 typedef __int8_t s8;
 typedef __int16_t s16;
 typedef __int32_t s32;
@@ -199,13 +216,19 @@ typedef __int64_t s64;
 typedef float f32;
 typedef double f64;
 
+// byte type (u8 alias)
 typedef u8 byte;
 
 // boolean types
 // -------------
 
-//typedef int bool;
+// booleans
 #define true 1
 #define false 0
+
+// conventional aliases
+//
+// - *empty*: used to indicate size of 0 or ptr to null
+// - *ok*: used to indicate successful status (no error)
 #define empty 0
 #define ok 0
